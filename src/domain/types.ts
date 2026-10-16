@@ -8,6 +8,7 @@ export interface Account {
   idNumber: string;
   createdAt: string;
   userId: string;
+  active?: boolean;
 }
 
 export interface Transaction {

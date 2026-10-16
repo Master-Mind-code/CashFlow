@@ -2,6 +2,18 @@ import { blink } from '@/lib/blink';
 import type { Account, Transaction, CashRegister } from '@/domain/types';
 
 export const AccountRepository = {
+  list: async (): Promise<Account[]> => {
+    return await blink.db.table<Account>('accounts').list();
+  },
+
+  create: async (account: Omit<Account, 'id'>): Promise<Account> => {
+    return await blink.db.table<Account>('accounts').create(account);
+  },
+
+  update: async (accountId: string, data: Partial<Account>): Promise<void> => {
+    await blink.db.table<Account>('accounts').update(accountId, data);
+  },
+
   getByAccountNumber: async (accountNumber: string): Promise<Account | null> => {
     const accounts = await blink.db.table<Account>('accounts').list({
       where: { accountNumber },

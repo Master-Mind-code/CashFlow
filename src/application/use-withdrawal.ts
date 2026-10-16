@@ -24,6 +24,7 @@ export function useWithdrawal() {
       const accountNumber = await mockSecurgen.scanCard();
       const acc = await AccountRepository.getByAccountNumber(accountNumber);
       if (!acc) throw new Error('Compte non trouvé');
+      if (acc.active === false) throw new Error('Ce compte est désactivé');
       setAccount(acc);
       setStep('BIOMETRIC_AUTH');
     } catch (err: any) {
