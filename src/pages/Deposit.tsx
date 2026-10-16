@@ -33,6 +33,7 @@ export function Deposit() {
     try {
       const acc = await AccountRepository.getByAccountNumber(accountNumber);
       if (!acc) throw new Error('Compte non trouvé');
+      if (acc.active === false) throw new Error('Ce compte est désactivé');
       setAccount(acc);
     } catch (err: any) {
       setError(err.message);
