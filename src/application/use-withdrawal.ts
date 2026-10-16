@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import type { WithdrawalStep, Account, BiometricAuthResult } from '@/domain/types';
 import { mockSecurgen } from '@/infrastructure/securgen';
 import { AccountRepository, TransactionRepository } from '@/infrastructure/repositories';
-import { blink } from '@/lib/blink';
+import { getCurrentUser } from '@/lib/blink';
 
 export function useWithdrawal() {
   const [step, setStep] = useState<WithdrawalStep>('IDLE');
@@ -58,7 +58,7 @@ export function useWithdrawal() {
 
     setIsLoading(true);
     try {
-      const user = await blink.auth.me();
+      const user = await getCurrentUser();
       if (!user) throw new Error('Session expirée');
 
       const newBalance = account.balance - amount;

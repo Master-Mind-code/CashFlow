@@ -6,7 +6,7 @@ import {
   Plus,
   AlertCircle
 } from 'lucide-react';
-import { blink } from '@/lib/blink';
+import { AccountRepository, TransactionRepository } from '@/infrastructure/repositories';
 import type { Transaction, Account } from '@/domain/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,8 +24,8 @@ export function Dashboard() {
     async function fetchData() {
       try {
         const [txs, accs] = await Promise.all([
-          blink.db.table<Transaction>('transactions').list({ limit: 5, orderBy: { timestamp: 'desc' } }),
-          blink.db.table<Account>('accounts').list()
+          TransactionRepository.list(5),
+          AccountRepository.list()
         ]);
         setTransactions(txs);
         setAccounts(accs);

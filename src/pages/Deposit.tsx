@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { blink } from '@/lib/blink';
+import { getCurrentUser } from '@/lib/blink';
 import { toast } from 'sonner';
 
 export function Deposit() {
@@ -46,7 +46,7 @@ export function Deposit() {
     if (!account) return;
     setLoading(true);
     try {
-      const user = await blink.auth.me();
+      const user = await getCurrentUser();
       if (!user) throw new Error('Session expirée');
 
       const val = Number(amount);

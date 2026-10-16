@@ -5,7 +5,7 @@ import {
   Download,
   Calendar
 } from 'lucide-react';
-import { blink } from '@/lib/blink';
+import { AccountRepository, TransactionRepository } from '@/infrastructure/repositories';
 import type { Transaction, Account } from '@/domain/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,8 +24,8 @@ export function History() {
     async function fetchData() {
       try {
         const [txs, accs] = await Promise.all([
-          blink.db.table<Transaction>('transactions').list({ orderBy: { timestamp: 'desc' } }),
-          blink.db.table<Account>('accounts').list()
+          TransactionRepository.list(100),
+          AccountRepository.list()
         ]);
         
         const merged = txs.map(tx => ({
