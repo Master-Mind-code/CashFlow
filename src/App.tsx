@@ -14,17 +14,17 @@ import { Button } from '@/components/ui/button';
 import { ShieldCheck, Loader2, LogIn } from 'lucide-react';
 import { Toaster } from '@/components/ui/sonner';
 import { useEffect } from 'react';
-import { blink } from '@/lib/blink';
+import { blink, getCurrentUser } from '@/lib/blink';
 import type { Account } from '@/domain/types';
 
 export default function App() {
-  const { isAuthenticated, loading, login } = useAuth();
+  const { isAuthenticated, loading, login, loginDemo } = useAuth();
 
   useEffect(() => {
     // Seed initial data if needed
     async function seedData() {
       if (!isAuthenticated) return;
-      const currentUser = await blink.auth.me();
+      const currentUser = await getCurrentUser();
       if (!currentUser) return;
       
       try {
@@ -84,10 +84,16 @@ export default function App() {
               <h2 className="text-lg font-semibold">Authentification requise</h2>
               <p className="text-sm text-muted-foreground">Veuillez vous connecter avec vos identifiants bancaires pour accéder au terminal de caisse.</p>
             </div>
-            <Button className="w-full h-12 text-lg gap-2" onClick={login}>
-              <LogIn className="w-5 h-5" />
-              Se connecter
-            </Button>
+            <div className="space-y-3">
+              <Button className="w-full h-12 text-base gap-2" onClick={login}>
+                <LogIn className="w-5 h-5" />
+                Se connecter avec Blink
+              </Button>
+              <Button variant="outline" className="w-full h-12 text-base gap-2 border-primary/30 hover:bg-primary/5" onClick={loginDemo}>
+                <ShieldCheck className="w-5 h-5 text-primary" />
+                Accès Immédiat (Session Caisse Démo)
+              </Button>
+            </div>
             <div className="text-center">
               <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                 Système certifié BIOTRANSAC • v4.2.0
