@@ -265,9 +265,9 @@ Secrets à définir dans **GitHub → Settings → Secrets and variables → Act
 
 | Membre | Rôle principal |
 | :--- | :--- |
-| **Membre 1** | Conception & Développement Frontend (React/Vite) |
-| **Membre 2** | Conteneurisation (Dockerfile, Nginx) & Tests locaux |
-| **Membre 3** | Déploiement Cloud AWS EC2 & Sécurité réseau |
+| **KONE ROKIA** | Conception & Développement Frontend (React/Vite) |
+| **DJEDRO Touré Sééh Paterne-Junior** | Conteneurisation (Dockerfile, Nginx) & Tests locaux |
+| **EBAH NIANGORAN JEAN-DOMINIque** | Déploiement Cloud AWS EC2 & Sécurité réseau |
 
 ---
 
